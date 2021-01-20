@@ -167,8 +167,7 @@ def scoreBoard(b):
     return (blackScore, redScore)
 
 
-def checkMoveScore(b, m,
-                   p):  # Goes through all possible moves and finds the one with the highest score. The computer will choose this one.
+def checkMoveScore(b, m, p):  # Goes through all possible moves and finds the one with the highest score. The computer will choose this one.
     moveScore = 1
     r = m[0]
     c = m[1]
@@ -202,34 +201,10 @@ def main():
     playing = True
     while playing:
         board = []
-        inGame = False
-        numPlayers = 0
-        option = 0
-        while (not inGame):
-            print("********************************")
-            print("*          OTHELLO             *")
-            print("********************************")
-            print("(c) Ali NasrollahPour")
-            print("")
-            print("1. 1 Player Mode")
-            print("2. 2 Player Mode")
-            print("3. Observer Mode (Computer vs Computer)")
-            while (option < 1 or option > 3):
-                try:
-                    option = int(input("Enter option: "))
-                    if option < 4:
-                        inGame = True
-                except:
-                    pass
-
-        numPlayers = option
-        if numPlayers == 3:
-            numPlayers = 0
         while (board == []):
             try:
                 screen = turtle.Screen()
                 screen.clear()
-                # board size
                 board = initialiseBoard(8)
             except:
                 print("Enter a valid number.")
@@ -264,38 +239,6 @@ def main():
             turtleText.goto(300, -380)
             turtleText.write("Red: " + str(scores[1]), False, align='center', font=("Arial", 12, "bold"))
             validMove = False
-            if ((playerTurn == -1 and numPlayers < 2) or numPlayers == 0):
-                availableMoves = moves(board, playerTurn)
-                if availableMoves != []:
-                    if playerTurn == -1:
-                        redCanMove = True
-                    else:
-                        blackCanMove = True
-                    validMove = True
-                    bestMove = selectMove(board, availableMoves, playerTurn)
-                    move(board, bestMove, playerTurn)
-                else:
-                    validMove = True
-                    if playerTurn == -1:
-                        redCanMove = False
-                    else:
-                        blackCanMove = False
-                    print("No available moves. Skipping turn.")
-
-            if (numPlayers > 0):
-                availableMoves = moves(board, playerTurn)
-                if availableMoves == []:
-                    if playerTurn == 1:
-                        blackCanMove = False
-                    else:
-                        redCanMove = False
-                    validMove = True
-                    print("No available moves. Skipping turn.")
-                else:
-                    if playerTurn == -1:
-                        redCanMove = True
-                    else:
-                        blackCanMove = True
 
             if (not blackCanMove and not redCanMove):
                 print("GAME OVER!")
